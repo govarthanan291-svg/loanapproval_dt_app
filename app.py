@@ -115,4 +115,4 @@ if predict:
     st.markdown('</div>', unsafe_allow_html=True)
 
 if clear:
-    st.experimental_rerun()
+    st.rerun()
