@@ -5,51 +5,44 @@ import numpy as np
 # ---------- Page Config ----------
 st.set_page_config(page_title="Loan Prediction App", layout="wide")
 
-# ---------- Custom CSS ----------
+# ---------- Background + Global Style ----------
 st.markdown("""
 <style>
 .stApp {
     background: linear-gradient(to right, #ff512f, #dd2476);
     color: white;
 }
-
-.big-title {
-    font-size: 40px;
-    font-weight: bold;
-    text-align: center;
-    color: #FFD700;
-}
-
 .section-box {
     background-color: rgba(0,0,0,0.4);
-    padding: 20px;
-    border-radius: 15px;
+    padding: 25px;
+    border-radius: 20px;
     margin-bottom: 20px;
 }
-
 .stButton>button {
-    background-color: #00FFFF;
-    color: black;
-    font-weight: bold;
-    border-radius: 10px;
     height: 50px;
     width: 200px;
-}
-
-.predict-btn>button {
-    background-color: #32CD32;
-    color: black;
-}
-
-.clear-btn>button {
-    background-color: red;
-    color: white;
+    font-size: 18px;
+    border-radius: 10px;
+    font-weight: bold;
 }
 </style>
 """, unsafe_allow_html=True)
 
-# ---------- Title ----------
-st.markdown('<p class="big-title">🚀 Loan Approval Prediction System</p>', unsafe_allow_html=True)
+# ---------- BIG TOP TITLE BOX ----------
+st.markdown("""
+<div style="
+    background: linear-gradient(to right, #FFD700, #FF8C00);
+    padding:40px;
+    border-radius:25px;
+    text-align:center;
+    font-size:50px;
+    font-weight:bold;
+    color:black;
+    box-shadow:0 0 30px #FFA500;
+    margin-bottom:30px;">
+    🏦 LOAN APPROVAL PREDICTION SYSTEM
+</div>
+""", unsafe_allow_html=True)
 
 # ---------- Load Pickle Files ----------
 model = pickle.load(open("decision_tree_model.pkl", "rb"))
@@ -88,7 +81,7 @@ with col2:
 col3, col4 = st.columns(2)
 
 with col3:
-    predict = st.button("🔮 Predict Loan Status")
+    predict = st.button("🔮 Predict")
 
 with col4:
     clear = st.button("🗑 Clear")
@@ -105,14 +98,38 @@ if predict:
 
     prediction = model.predict(input_pca)
 
-    st.markdown('<div class="section-box">', unsafe_allow_html=True)
-
     if prediction[0] == 1:
-        st.success("🎉 Loan Approved Successfully!")
+        st.markdown("""
+        <div style="
+            background-color:#00C853;
+            padding:50px;
+            border-radius:25px;
+            text-align:center;
+            font-size:45px;
+            font-weight:bold;
+            color:white;
+            box-shadow:0 0 30px #00FF00;
+            margin-top:30px;">
+            🎉 LOAN APPROVED 🎉
+        </div>
+        """, unsafe_allow_html=True)
+
     else:
-        st.error("❌ Loan Rejected!")
+        st.markdown("""
+        <div style="
+            background-color:#D50000;
+            padding:50px;
+            border-radius:25px;
+            text-align:center;
+            font-size:45px;
+            font-weight:bold;
+            color:white;
+            box-shadow:0 0 30px red;
+            margin-top:30px;">
+            ❌ LOAN REJECTED ❌
+        </div>
+        """, unsafe_allow_html=True)
 
-    st.markdown('</div>', unsafe_allow_html=True)
-
+# ---------- Clear ----------
 if clear:
     st.rerun()
